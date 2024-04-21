@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width initial-scale=1.0">
+  <title>SUDOKU</title>
+  <link rel="stylesheet" href="./css/sdk_style.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script  src="./js/sdk_script.js"></script>
+</head>
+
+<body>
+<div href="#" id="container">
+  <header>
+    <h1 id="sudoku_title">SUDOKU</h1>
+    
+  </header>
+  <a href="#" id="sidebar-toggle">
+    <span class="bar"></span>
+    <span class="bar"></span>
+    <span class="bar"></span>
+  </a>
+
+  <div href="#" id="sudoku_menu">
+    <ul>
+      <li>
+        <a class="restart" href="#">
+          <img src="/assets/reset.png">
+          <!-- Restart -->
+        </a>
+      </li>
+      
+      <li>
+        <a href="#">
+          <img src="/assets/hint.png">
+          <!-- Hint -->
+        </a>
+      </li>
+
+      <li>
+        <a id="close" href="#">
+          <img src="/assets/close.png">
+          <!-- Close Game -->
+        </a>
+      </li>
+
+    </ul>
+    
+  </div>
+
+  <div id="sudoku_container"></div>
+</div>
+</body>
+
+</html>
