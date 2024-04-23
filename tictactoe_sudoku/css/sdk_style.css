@@ -1,3 +1,16 @@
+.msg {
+  font-size: xx-large;
+  font-family: Arial, Helvetica, sans-serif;
+  display: none;
+  text-align: center;
+  width: 100%;
+  height: 100%;
+}
+
+.sudoku_all {
+  display: none;
+}
+
 H1 { 
     background:darkgray;
     color:white;
@@ -123,6 +136,45 @@ body {
 	    box-sizing: border-box;
 }
 
+.game_wrapper {
+  height: 100vh;
+  width: 100%;
+  text-align: center;
+  overflow: hidden;
+}
+
+.game_controls {
+  display: flex;
+  flex-direction: row;
+  width: 100%;   
+}
+
+.nav {
+  display: flex;
+  flex-direction: row;
+  flex-grow: 1;
+  padding: 10px;
+}
+.controls {
+  display: flex;
+  flex-direction: row;
+  flex-grow: 1;
+  text-align: center;
+}
+.new_game_item_wrap {
+  flex-grow: 1;
+  size-adjust: 1;
+}
+
+.hint_item_wrap {
+  flex-grow: 1;
+  size-adjust: 1;
+}
+.close_game_item_wrap{
+  flex-grow: 1;
+  size-adjust: 1;
+}
+
 .gameover_container .gameover {
     color:white;
     font-weight:bold;
@@ -136,16 +188,13 @@ body {
     box-shadow: 0px 0px 5px 5px #bdc3c7;
 }
 
-
 .restart {
   background:#7F8C8D;
   color:#ecf0f1;
 }
-
-.close {
-    background-color: red;
+.gameover_container{
+  display: none;
 }
-
 /* console */
 .board_console_container, .gameover_container {
     background-color: rgba(127, 140, 141, 0.7);

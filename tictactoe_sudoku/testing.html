@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="./css/ttt_style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <!-- <script  src="./js/sdk_script.js"></script> -->
+    <script src="./js/ttt_script.js"></script>
+    <link rel="stylesheet" href="./css/sdk_style.css">
+    
+
+  </head>
+  <body>
+  <div class="ttt_container" id="ttt_container">
+      <table>
+        <tr>
+          <td id="1"></td>
+          <td id="2"></td>
+          <td id="3"></td>
+        </tr>
+        <tr>
+          <td id="4"></td>
+          <td id="5"></td>
+          <td id="6"></td>
+        </tr>
+        <tr>
+          <td id="7"></td>
+          <td id="8"></td>
+          <td id="9"></td>
+        </tr>
+      </table>
+
+      </textarea>
+    </div>
+    
+    <!-- <button class="open-button" onclick="openForm()">Open Form</button> -->
+
+    <!-- The form -->
+    <!-- <div class="form-popup" id="myForm">
+      <form action="/action_page.php" class="form-container">
+        <h1>Login</h1>
+    
+        <label for="email"><b>Email</b></label>
+        <input type="text" placeholder="Enter Email" name="email" required>
+    
+        <label for="psw"><b>Password</b></label>
+        <input type="password" placeholder="Enter Password" name="psw" required>
+    
+        <button type="submit" class="btn">Login</button>
+        <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+      </form>
+    </div> -->
+
+    <p class="msg" id="msg">Good job!</p>
+
+    <div class="sudoku_all" id="sudoku_all">
+        <div id="container">
+          <header>
+            <h1 id="sudoku_title">SUDOKU</h1>
+            
+          </header>
+          <div class="game_wrapper">
+            <div id="sudoku_container"></div>
+            <div class="game_controls">
+              <nav class="nav">
+                <div class="controls">
+                  <div class="new_game_item_wrap">
+                    <div class="new_game_control_item">
+                      <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="50px" height="50px" viewBox="0 0 50 50">
+                        <path d="M 25 2 A 2.0002 2.0002 0 1 0 25 6 C 35.517124 6 44 14.482876 44 25 C 44 35.517124 35.517124 44 25 44 C 14.482876 44 6 35.517124 6 25 C 6 19.524201 8.3080175 14.608106 12 11.144531 L 12 15 A 2.0002 2.0002 0 1 0 16 15 L 16 4 L 5 4 A 2.0002 2.0002 0 1 0 5 8 L 9.5253906 8 C 4.9067015 12.20948 2 18.272325 2 25 C 2 37.678876 12.321124 48 25 48 C 37.678876 48 48 37.678876 48 25 C 48 12.321124 37.678876 2 25 2 z"></path>
+                        </svg>
+                    </div>
+                  </div>
+                  
+                  <div class="hint_item_wrap">
+                    <div class="hint_control_item">
+                      <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="50px" height="50px" viewBox="0 0 64 64">
+                        <path d="M 32.230469 5 C 23.848469 4.9 16.498672 10.593594 13.888672 18.558594 C 11.127672 26.983594 15.386047 33.640219 18.623047 38.699219 C 20.014047 40.873219 21.260672 42.820437 21.763672 44.523438 C 22.019672 45.390437 22.785453 46 23.689453 46 L 25 46 C 25 43.099 23.216391 40.311031 21.150391 37.082031 C 18.735391 33.309031 16 29.033 16 24 C 16 15.25 23.059203 8.118 31.783203 8 C 38.659203 7.909 44.596297 12.415656 47.029297 18.847656 C 49.811297 26.202656 46.048609 32.083031 42.849609 37.082031 C 40.783609 40.311031 39 43.099 39 46 L 40.310547 46 C 41.214547 46 41.980328 45.389437 42.236328 44.523438 C 42.740328 42.820438 43.985953 40.875172 45.376953 38.701172 C 47.882953 34.785172 51 29.911 51 24 C 51 13.6 42.600469 5.125 32.230469 5 z M 8.6542969 6.5488281 L 6.8105469 8.9160156 L 11.345703 12.451172 L 13.189453 10.083984 L 8.6542969 6.5488281 z M 55.347656 6.5527344 L 50.810547 10.085938 L 52.654297 12.453125 L 57.191406 8.9179688 L 55.347656 6.5527344 z M 2 23 L 2 26 L 7 26 L 7 23 L 2 23 z M 57 23 L 57 26 L 62 26 L 62 23 L 57 23 z M 26.802734 24.755859 L 26.447266 24.957031 C 25.207266 25.663031 24.681547 27.165 25.185547 28.5 C 26.312547 31.485 28 37.389 28 46 L 31 46 C 31 32.26 26.973734 25.056859 26.802734 24.755859 z M 37.197266 24.755859 C 37.026266 25.055859 33 32.26 33 46 L 36 46 C 36 37.388 37.6865 31.483 38.8125 28.5 C 39.3165 27.167 38.793641 25.667938 37.556641 24.960938 L 37.197266 24.755859 z M 52.654297 35.548828 L 50.810547 37.916016 L 55.345703 41.451172 L 57.189453 39.083984 L 52.654297 35.548828 z M 11.34375 35.550781 L 6.8085938 39.085938 L 8.6523438 41.451172 L 13.1875 37.917969 L 11.34375 35.550781 z M 23 49 L 23.609375 53.261719 C 23.844375 54.909719 25.076172 56.238609 26.701172 56.599609 L 28.115234 56.914062 C 28.529925 58.680974 30.106665 60 32 60 C 33.893335 60 35.470075 58.680974 35.884766 56.914062 L 37.298828 56.599609 C 38.923828 56.238609 40.155625 54.909719 40.390625 53.261719 L 41 49 L 33 49 L 31 49 L 23 49 z"></path>
+                        </svg>
+                    </div>
+                  </div>
+                  
+                  <div class="close_game_item_wrap">
+                    <div class="close_game_control_item">
+                      <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="50px" height="50px" viewBox="0 0 50 50">
+                        <path d="M 9.15625 6.3125 L 6.3125 9.15625 L 22.15625 25 L 6.21875 40.96875 L 9.03125 43.78125 L 25 27.84375 L 40.9375 43.78125 L 43.78125 40.9375 L 27.84375 25 L 43.6875 9.15625 L 40.84375 6.3125 L 25 22.15625 Z"></path>
+                        </svg>
+                    </div>
+                  </div>
+        
+                </div>
+              </nav>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+</body>
+</html>

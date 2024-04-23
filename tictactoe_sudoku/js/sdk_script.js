@@ -3,7 +3,7 @@ Sudoku game
 */
 function Sudoku(params) {
     var t = this;
-  
+
     this.INIT = 0;
     this.RUNNING = 1;
     this.END = 2;
@@ -13,17 +13,15 @@ function Sudoku(params) {
     this.displaySolutionOnly = params.displaySolutionOnly || 0;
     this.displayTitle = params.displayTitle || 0;
     this.highlight = params.highlight || 0;  
-    this.fixCellsNr = params.fixCellsNr || 32;
+    this.fixCellsNr = params.fixCellsNr || 50;
     this.n = 3;    
     this.nn = this.n * this.n;      
     this.cellsNr = this.nn * this.nn;
-    this.difficultyLevel = params.difficultyLevel;
+    this.gameSolved = params.gameSolved;
     
-    // if (this.fixCellsNr < 10 ) this.fixCellsNr = 10;
-    // if (this.fixCellsNr > 70 ) this.fixCellsNr = 70;      
-    if (this.difficultyLevel == 0) this.fixCellsNr == 70;
-    if (this.difficultyLevel == 1) this.fixCellsNr == 50;
-    if (this.difficultyLevel == 3) this.fixCellsNr == 30;
+    if (this.fixCellsNr < 20 ) this.fixCellsNr = 30;
+    if (this.fixCellsNr > 70 ) this.fixCellsNr = 70;      
+
     this.init();
   
     //counter    
@@ -188,7 +186,7 @@ Sudoku.prototype.drawBoard = function(){
     var sudoku_board = $('<div></div>').addClass('sudoku_board');
     var sudoku_statistics = $('<div></div>')
                                 .addClass('statistics')
-    .html('<b>Cells:</b> <span class="cells_complete">'+ this.cellsComplete +'/'+this.cellsNr +'</span> <b>Time:</b> <span class="time">' + this.secondsElapsed + '</span>');
+    // .html('<b>Cells:</b> <span class="cells_complete">'+ this.cellsComplete +'/'+this.cellsNr +'</span> <b>Time:</b> <span class="time">' + this.secondsElapsed + '</span>');
     
     $('#'+ this.id).empty();
     
@@ -241,13 +239,13 @@ Sudoku.prototype.drawBoard = function(){
     $('<div></div>').addClass('num note').text('?').appendTo(sudoku_console);
     
     //draw gameover
-    var sudoku_gameover = $('<div class="gameover_container"><div class="gameover">Congratulation! <button class="restart">Play Again</button></div></div>');
+    // var sudoku_gameover = $('<div class="gameover_container"><div class="gameover">Congratulation! <button class="restart">Play Again</button></div></div>');
     
     //add all to sudoku container
     sudoku_console_cotainer.appendTo('#'+ this.id).hide();
     sudoku_console.appendTo(sudoku_console_cotainer);    
     sudoku_statistics.appendTo('#'+ this.id);
-    sudoku_gameover.appendTo('#'+ this.id).hide();  
+    // sudoku_gameover.appendTo('#'+ this.id).hide();  
   
     //adjust size
     this.resizeWindow();
@@ -431,6 +429,8 @@ Sudoku.prototype.addValue = function(value) {
     //game over
     if (this.cellsComplete === this.cellsNr) {
         this.gameOver();
+        //// return true
+        this.gameSolved = true;
     }
       
     $('#'+ this.id +' .statistics .cells_complete').text(''+this.cellsComplete+'/'+this.cellsNr);  
@@ -547,8 +547,13 @@ Sudoku.prototype.run = function(){
     });
 };
 
+// additional functions sections
+function gameSolvedMsg(){
+    document
+}
+
 function closeWindow() {
-    if (confirm("Close Window?")) {
+    if ("Close game?") {
         window.close();
     }
 };
@@ -567,26 +572,36 @@ $(function() {
                     fixCellsNr: 30,
                     highlight : 1,
                     displayTitle : 1,
-                    // difficultyLevel
+                    gameSolved : false,
                     //displaySolution: 1,
                     //displaySolutionOnly: 1,
                });
     
     game.run();
   
-    $('#sidebar-toggle').on('click', function(e){
-      $('#sudoku_menu').toggleClass("open-sidebar");
-    });
+    // $('#sidebar-toggle').on('click', function(e){
+    //   $('#sudoku_menu').toggleClass("open-sidebar");
+        
+    // });
   
      //restart game
-    $('#'+ game.id +' .restart').on('click', function(){
-        game.init().run();
+    // $('#'+ game.id +' .restart').on('click', function(){
+    //     game.init().run();
+    // });
+    $('.textbox').on('input', finction(){
+        alert($(game).val(gameSolved));
     });
-  
-    $('#sudoku_menu .restart').on('click', function(){
+
+    $('.new_game_control_item').on('click', function(){
         game.init().run();
-        $('#sudoku_menu').removeClass('open-sidebar');
+        // $('#sudoku_menu').removeClass('open-sidebar');
+    });
+    
+    $('.close_game_control_item').on('click', function(){
+        $('.sudoku_all').hide();
+        $('.ttt_container').show();
     });
     
     console.timeEnd("loading time");
+    
 });
