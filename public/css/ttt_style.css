@@ -6,10 +6,35 @@
   text-align: center;
 }
 
+.level_container {
+  display: flex;
+  /* margin: 0 auto; */
+  /* text-align: center; */
+  align-items: center;
+  justify-content: center;
+  box-shadow: #555;
+  position: fixed;
+  z-index: 2;
+  width: 100%; /* Full width (cover the whole page) */
+  height: 50%; /* Full height (cover the whole page) */
+  top: 25%;
+  left: 0;
+  right: 0;
+  bottom: 25%;
+  background-color: darkgrey;
+  opacity: 0.8;
+}
 
 /* {box-sizing: border-box;} */
 .ttt_container {
   display: block;
+  
+}
+
+.ttt_game_control {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 /* Button used to open the contact form - fixed at the bottom of the page */
 .open-button {
@@ -104,7 +129,12 @@
 
   /* Reset button */
   .reset{
-    display: block;
+    display: inline-block;
     text-align: center;
+  }
 
+  /* New Game button */
+  .new_game {
+    display: inline-block;
+    text-align: center;
   }

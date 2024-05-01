@@ -32,23 +32,17 @@
   <body>
     
     <div id="game_init" class="game_init">
-      <div id="selecting_symbol" class="selecting_symbol">
-        <select name="symbol" id="symbol">
-          <option value="x">X</option>
-          <option value="o">O</option>
-        </select>
-      </div>
-      <div id="difficulty" class="difficulty">
+      <div id="level_container" class="level_container">
         <select name="difficulty" id="difficulty">
           <option value="easy">Easy</option>
           <option value="medium">Medium</option>
           <option value="hard">Hard</option>
         </select>
-  
+        <div id="start" class="start">
+          <button>Start</button>
+        </div>
       </div>
-      <div id="start" class="start">
-        <button>Start</button>
-      </div>
+      
     </div>
 
     <div class="ttt_container" id="ttt_container">
@@ -69,8 +63,13 @@
           <td id="9"></td>
         </tr>
       </table>
-      <div class="reset" id="reset">
-        <button>Reset Game</button>
+      <div class="ttt_game_control" id="ttt_game_control">
+        <div class="reset" id="reset">
+          <button>Reset Game</button>
+        </div>
+        <div class="new_game" id="new_game">
+          <button>New Game</button>
+        </div>
       </div>
     </div>
 

@@ -3,14 +3,154 @@ var global_sudoku_game;
 var isSolved = false;
 var gameEnded = false;
 var idSelect = null;
-var player1 = 'X'; // first player choose symbol
+var player1 = 'X'; // player see X, and opponent is O
 var player2 = null;
-var difficulty_level = null; 
+difficulty_level = null; 
 
 /* Game Init */
-$('#start').on('click', function() {
-  player1 = 
+
+function game_init(){
+  var level;
+  $('#start').on('click', function(){
+    level = document.getElementById('difficulty').value;
+    if (level === "easy"){
+      difficulty_level = 70;
+     }
+     else if (level === "medium") {
+      difficulty_level = 50;
+     }
+     else if (level === "hard") {
+      difficulty_level = 30;
+     }
+     console.log("inside difficulty level is " + difficulty_level);
+     $('#game_init').hide();
+     startGame();
+  });
+  console.log("outside event difficulty level is " + difficulty_level);
+};
+console.log("outside difficulty level is " + difficulty_level);
+
+
+/**
+ * Tic-Tac-Toe Game
+ */
+
+function openForm() {
+  console.log("inside openForm difficulty level is " + difficulty_level);
+  document.getElementById("sudoku_all").style.display = "block";
+  document.getElementById("ttt_container").style.display = "none";
+  var newgame = new Sudoku({ 
+    id: 'sudoku_container',                    
+    fixCellsNr: difficulty_level,
+    highlight : 1,
+    displayTitle : 1,
+    isSolved : false,
+    //displaySolution: 1,
+    //displaySolutionOnly: 1,
 });
+  newgame.init().run(); // randomly generate new sudoku 
+}
+function closeForm() {
+  document.getElementById("myForm").style.display = "none";
+  for (let i = 1; i <= 9; i++) 
+  {
+    document.getElementById(i.toString()).style.display = "table-cell";    
+  }
+}
+
+
+
+
+// let playerSymbol = "X";
+function startGame() {
+  // game_init();
+  // console.log("outside difficulty level " + difficulty_level);
+  console.log("inside startGame() difficulty level is " + difficulty_level);
+  // Add event listeners to each cell
+  for (let i = 1; i <= 9; i++) {
+    document.getElementById(i.toString()).addEventListener('click', function() {
+      
+      // Check if cell is empty and game is not ended
+      if (this.innerHTML === "" && !gameEnded) {
+        // Get location of the selected square in tictactoe
+        idSelect=this.getAttribute('id');
+        // Open up a new sudoku puzzle
+        openForm();
+        if (isSolved == true){
+          this.innerHTML = playerSymbol;
+          this.classList.add(playerSymbol.toLowerCase());
+        }
+      
+        // Check for win
+          checkWin();
+        
+      }
+    });
+  }
+
+  
+  // Reset game
+  document.getElementById("reset").addEventListener("click", function() {
+    for (let i = 1; i <= 9; i++) {
+      let cell = document.getElementById(i.toString());
+      cell.innerHTML = "";
+      cell.classList.remove("x");
+      cell.classList.remove("o");
+      cell.classList.remove("win");
+    }
+    
+    // Reset game state
+    gameEnded = false;
+    // playerSymbol = "X";
+  });
+
+  // New Game
+  $('#new_game').on('click', function(){
+    location.reload();
+  })
+}
+
+  // Check for win
+  function checkWin() {
+    let winPos = [
+      [1, 2, 3], [4, 5, 6], 
+      [7, 8, 9], [1, 4, 7], 
+      [2, 5, 8], [3, 6, 9], 
+      [1, 5, 9], [3, 5, 7]
+    ];
+    for (let i = 0; i < winPos.length; i++) {
+      if (
+        (document.getElementById(winPos[i][0]).innerHTML==="X"||document.getElementById(winPos[i][0]).innerHTML==="O")&&
+        document.getElementById(winPos[i][0]).innerHTML === document.getElementById(winPos[i][1]).innerHTML &&
+        document.getElementById(winPos[i][0]).innerHTML === document.getElementById(winPos[i][2]).innerHTML
+      ) {
+        // Add win class to winning cells
+        document.getElementById(winPos[i][0]).classList.add("win");
+        document.getElementById(winPos[i][1]).classList.add("win");
+        document.getElementById(winPos[i][2]).classList.add("win"); 
+        
+        // End game
+        // playerSymbol = playerSymbol === "X" ? "O" : "X";
+        gameEnded = true;
+        
+        // Show winner alert
+        setTimeout(function() {
+          alert(document.getElementById(winPos[i][0]).innerHTML + " wins!");
+        }, 500);
+      }
+    }
+  }
+
+function tickttt(id,playerSymbol){
+  document.getElementById(id).innerHTML = playerSymbol;
+  document.getElementById(id).classList.add(playerSymbol.toLowerCase());
+  checkWin();
+}
+
+
+// Call startGame function when the page loads
+document.addEventListener("DOMContentLoaded", game_init);
+
 
 
   /**
@@ -28,14 +168,16 @@ function Sudoku(params) {
   this.displaySolutionOnly = params.displaySolutionOnly || 0;
   this.displayTitle = params.displayTitle || 0;
   this.highlight = params.highlight || 0;  
-  this.fixCellsNr = params.fixCellsNr || 50;
+  this.fixCellsNr = params.fixCellsNr || 80;
   this.n = 3;    
   this.nn = this.n * this.n;      
   this.cellsNr = this.nn * this.nn;
+  console.log("inside sdk prototype difficulty level is " + difficulty_level);
+
   isSolved = params.isSolved;
   
-  if (this.fixCellsNr < 20 ) this.fixCellsNr = 30;
-  if (this.fixCellsNr > 69 ) this.fixCellsNr = 79;      
+  // if (this.fixCellsNr < 20 ) this.fixCellsNr = 30;
+  // if (this.fixCellsNr > 69 ) this.fixCellsNr = 79;      
 
   this.init();
 
@@ -579,13 +721,6 @@ Sudoku.prototype.run = function(){
 };
 
 
-//additional functions 
-function closeWindow() {
-  if ("Close game?") {
-      window.close();
-  }
-};
-
 
 //main
 $(function main() {
@@ -595,19 +730,20 @@ $(function main() {
   $('head').append('<meta name="viewport" content="initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,width=device-width,height=device-height,target-densitydpi=device-dpi,user-scalable=yes" />');
   
   //game 
-  
+  console.log("inside sdk main difficulty level is " + difficulty_level);
   var game = new Sudoku({ 
                   id: 'sudoku_container',                    
-                  fixCellsNr: 70,
+                  fixCellsNr: difficulty_level,
                   highlight : 1,
                   displayTitle : 1,
                   isSolved : false,
                   //displaySolution: 1,
                   //displaySolutionOnly: 1,
   });
-  game.run()
-  
+  // game.run();
+
   global_sudoku_game = game;
+  global_sudoku_game.run();
 
   $('.new_game_control_item').on('click', function(){
       game.init().run();
@@ -626,108 +762,3 @@ $(function main() {
 
 
 
-
-/**
- * Tic-Tac-Toe Game
- */
-
-function openForm() {
-  
-  document.getElementById("sudoku_all").style.display = "block";
-  document.getElementById("ttt_container").style.display = "none";
-  global_sudoku_game.init().run(); // randomly generate new sudoku 
-}
-function closeForm() {
-  document.getElementById("myForm").style.display = "none";
-  for (let i = 1; i <= 9; i++) 
-  {
-    document.getElementById(i.toString()).style.display = "table-cell";    
-  }
-}
-
-
-
-
-// let playerSymbol = "X";
-function startGame() {
-
-  // Add event listeners to each cell
-  for (let i = 1; i <= 9; i++) {
-    document.getElementById(i.toString()).addEventListener('click', function() {
-      
-      // Check if cell is empty and game is not ended
-      if (this.innerHTML === "" && !gameEnded) {
-        // Get location of the selected square in tictactoe
-        idSelect=this.getAttribute('id');
-        // Open up a new sudoku puzzle
-        openForm();
-        if (isSolved == true){
-          this.innerHTML = playerSymbol;
-          this.classList.add(playerSymbol.toLowerCase());
-        }
-      
-        // Check for win
-          checkWin();
-        
-      }
-    });
-  }
-  
-
-  
-  // Reset game
-  document.getElementById("reset").addEventListener("click", function() {
-    for (let i = 1; i <= 9; i++) {
-      let cell = document.getElementById(i.toString());
-      cell.innerHTML = "";
-      cell.classList.remove("x");
-      cell.classList.remove("o");
-      cell.classList.remove("win");
-    }
-    
-    // Reset game state
-    gameEnded = false;
-    // playerSymbol = "X";
-  });
-}
-
-  // Check for win
-  function checkWin() {
-    let winPos = [
-      [1, 2, 3], [4, 5, 6], 
-      [7, 8, 9], [1, 4, 7], 
-      [2, 5, 8], [3, 6, 9], 
-      [1, 5, 9], [3, 5, 7]
-    ];
-    for (let i = 0; i < winPos.length; i++) {
-      if (
-        (document.getElementById(winPos[i][0]).innerHTML==="X"||document.getElementById(winPos[i][0]).innerHTML==="O")&&
-        document.getElementById(winPos[i][0]).innerHTML === document.getElementById(winPos[i][1]).innerHTML &&
-        document.getElementById(winPos[i][0]).innerHTML === document.getElementById(winPos[i][2]).innerHTML
-      ) {
-        // Add win class to winning cells
-        document.getElementById(winPos[i][0]).classList.add("win");
-        document.getElementById(winPos[i][1]).classList.add("win");
-        document.getElementById(winPos[i][2]).classList.add("win"); 
-        
-        // End game
-        // playerSymbol = playerSymbol === "X" ? "O" : "X";
-        gameEnded = true;
-        
-        // Show winner alert
-        setTimeout(function() {
-          alert(document.getElementById(winPos[i][0]).innerHTML + " wins!");
-        }, 500);
-      }
-    }
-  }
-
-function tickttt(id,playerSymbol){
-  document.getElementById(id).innerHTML = playerSymbol;
-  document.getElementById(id).classList.add(playerSymbol.toLowerCase());
-  checkWin();
-}
-
-
-// Call startGame function when the page loads
-document.addEventListener("DOMContentLoaded", startGame);
