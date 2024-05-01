@@ -22,13 +22,10 @@ function game_init(){
      else if (level === "hard") {
       difficulty_level = 30;
      }
-     console.log("inside difficulty level is " + difficulty_level);
      $('#game_init').hide();
      startGame();
   });
-  console.log("outside event difficulty level is " + difficulty_level);
 };
-console.log("outside difficulty level is " + difficulty_level);
 
 
 /**
@@ -36,9 +33,11 @@ console.log("outside difficulty level is " + difficulty_level);
  */
 
 function openForm() {
-  console.log("inside openForm difficulty level is " + difficulty_level);
+  /*Show Sudoku puzzle*/
+
   document.getElementById("sudoku_all").style.display = "block";
   document.getElementById("ttt_container").style.display = "none";
+  /* create new game for selected level */
   var newgame = new Sudoku({ 
     id: 'sudoku_container',                    
     fixCellsNr: difficulty_level,
@@ -47,25 +46,24 @@ function openForm() {
     isSolved : false,
     //displaySolution: 1,
     //displaySolutionOnly: 1,
-});
+  });
+
   newgame.init().run(); // randomly generate new sudoku 
+
+  // generate new sudoku when player hit new game button
+  $('.new_game_control_item').on('click', function(){
+    newgame.init().run();
+  });
+  // close current sudoku and generate a new game for play
+  $('.close_game_control_item').on('click', function(){
+      $('.sudoku_all').hide();
+      newgame.init().run();
+      $('.ttt_container').show();
+  });
 }
-function closeForm() {
-  document.getElementById("myForm").style.display = "none";
-  for (let i = 1; i <= 9; i++) 
-  {
-    document.getElementById(i.toString()).style.display = "table-cell";    
-  }
-}
 
-
-
-
-// let playerSymbol = "X";
 function startGame() {
-  // game_init();
-  // console.log("outside difficulty level " + difficulty_level);
-  console.log("inside startGame() difficulty level is " + difficulty_level);
+  
   // Add event listeners to each cell
   for (let i = 1; i <= 9; i++) {
     document.getElementById(i.toString()).addEventListener('click', function() {
@@ -172,12 +170,8 @@ function Sudoku(params) {
   this.n = 3;    
   this.nn = this.n * this.n;      
   this.cellsNr = this.nn * this.nn;
-  console.log("inside sdk prototype difficulty level is " + difficulty_level);
 
-  isSolved = params.isSolved;
-  
-  // if (this.fixCellsNr < 20 ) this.fixCellsNr = 30;
-  // if (this.fixCellsNr > 69 ) this.fixCellsNr = 79;      
+  isSolved = params.isSolved;     
 
   this.init();
 
@@ -725,36 +719,8 @@ Sudoku.prototype.run = function(){
 //main
 $(function main() {
   console.time("loading time");    
-  
-  //init        
+  // customize sudoku game for mobile platform       
   $('head').append('<meta name="viewport" content="initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,width=device-width,height=device-height,target-densitydpi=device-dpi,user-scalable=yes" />');
-  
-  //game 
-  console.log("inside sdk main difficulty level is " + difficulty_level);
-  var game = new Sudoku({ 
-                  id: 'sudoku_container',                    
-                  fixCellsNr: difficulty_level,
-                  highlight : 1,
-                  displayTitle : 1,
-                  isSolved : false,
-                  //displaySolution: 1,
-                  //displaySolutionOnly: 1,
-  });
-  // game.run();
-
-  global_sudoku_game = game;
-  global_sudoku_game.run();
-
-  $('.new_game_control_item').on('click', function(){
-      game.init().run();
-  });
-
-  $('.close_game_control_item').on('click', function(){
-      $('.sudoku_all').hide();
-      game.init().run();
-      $('.ttt_container').show();
-  });
-  
   console.timeEnd("loading time");
   
 });
