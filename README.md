@@ -1,4 +1,5 @@
 <h1>Documentation</h1>
+<p>GITHUB URL: https://github.com/tinnguyen0298/tictactoe_sudoku.git</p>
 
 <h2>Installtion On aws</h2> 
 <p>sudo su</p>
