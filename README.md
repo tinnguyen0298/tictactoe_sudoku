@@ -1,6 +1,6 @@
 <h1>Documentation</h1>
 
-<h2>On aws</h2> 
+<h2>Installtion On aws</h2> 
 <p>sudo su</p>
 <p>Install node.js</p>
 <p>Install express</p>
@@ -9,7 +9,7 @@
 <p> curl informations following folder format NOTE: the folders css and js are in a folder name public </p>
 <p>If on aws go to web securities</p> 
 <p>Add a custom tcp of port 3000 with it being open which is 0.0.0.0/0</p>
-<p>Follow final steps of</p>
+<p>Follow final steps</p>
 
  <h2> Final Steps</h2>
 <p>In terminal </p>
