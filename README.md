@@ -1,25 +1,18 @@
-Documentation
-On aws
-Sudo su
-Install node.js
-Install express
-Install websocket
-Install anything else required that I may have forgotten
-If on aws go to web securities 
-Add a custom tcp of port 3000 with it being open which is 0.0.0.0/0
-Launch aws and install all the following things. 
-Then launch the ip address of the specified thing.
+<h1>Documentation</h1>
 
-If not on aws 
-Go to tic-tac-sudoku folder and download
-Install node.js
-Install express
-Install websocket
-Install anything else required that I may have forgotten
+<h2>On aws</h2> 
+<p>sudo su</p>
+<p>Install node.js</p>
+<p>Install express</p>
+<p>Install websocket</p>
+<p>Install anything else required that I may have forgotten from warnings</p>
+<p> curl informations following folder format NOTE: the folders css and js are in a folder name public </p>
+<p>If on aws go to web securities</p> 
+<p>Add a custom tcp of port 3000 with it being open which is 0.0.0.0/0</p>
+<p>Follow final steps of</p>
 
-
-Both 
-In terminal
-Node index.js
-Go to website
-Test product
+ <h2> Final Steps</h2>
+<p>In terminal </p>
+<p>node index.js </p>
+<p>Go to website</p>
+<p>Test product</p>
